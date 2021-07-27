@@ -19,7 +19,7 @@ def getNodesList():
                 'status': model.status
             }
             datas.append(data)
-        return ajaxResponse.success(message="保存成功",data=datas)
+        return ajaxResponse.success(message="成功",data=datas)
     except Exception as e:
         log.error("错误 - {}".format(e))
         raise ServerError()
@@ -38,7 +38,7 @@ def getNode(form):
             'note':model.note,
             'status':model.status
         }
-        return ajaxResponse.success(message="保存成功",data=data)
+        return ajaxResponse.success(message="成功",data=data)
     except Exception as e:
         log.error("错误 - {}".format(e))
         raise ServerError()
@@ -88,16 +88,21 @@ def editNode(form):
         if model is None:
             return ajaxResponse.fail(message='node不存在')
 
-        model.node_name = form.node_name.data
-        model.ip = form.ip.data
-        model.port = form.port.data
-        model.note = form.note.data
+        if form.node_name.data:
+            model.node_name = form.node_name.data
+        if form.ip.data:
+            model.ip = form.ip.data
+        if form.port.data:
+            model.port = form.port.data
+        if form.note.data:
+            model.note = form.note.data
+
         try:
             db.session.commit()
         except Exception:
             db.session.rollback()
             return ajaxResponse.fail('更新失败,可能部分字段已存在')
-        return ajaxResponse.success(message="保存成功")
+        return ajaxResponse.success(message="成功")
     except Exception as e:
         log.error("错误 - {}".format(e))
         raise ServerError()

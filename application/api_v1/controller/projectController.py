@@ -6,7 +6,9 @@
 @desc:
 '''
 from application.api_v1.service import projectService
+from application.api_v1.validators.projectForms import AddProjectForm, ProjectForm
 from application.base.redPrint import RedPrint
+from flask import request
 
 api = RedPrint('project')
 
@@ -22,8 +24,7 @@ def getProjectsListController():
     获取项目列表
     :return:
     """
-    form = ''
-    result = projectService.getProjectsList(form)
+    result = projectService.getProjectsList()
     return result
 
 
@@ -33,21 +34,36 @@ def getProjectController():
     获取一个项目
     :return:
     """
-    form = ''
-    result = projectService.getProject(form)
-    return result
+    form = ProjectForm()
+    if form.validate_for_api():
+        result = projectService.getProject(form)
+        return result
 
 
-@api.route('/addProject', methods=['GET'])
+@api.route('/addProject', methods=['POST'])
 def addProjectController():
     """
     新增一个项目
     :return:
     """
-    form = ''
-    result = projectService.addProject(form)
-    return result
+    form = AddProjectForm()
+    if form.validate_for_api():
+        result = projectService.addProject(form)
+        return result
 
+@api.route('/uploadFile', methods=['POST'])
+def uploadFileController():
+    """
+    新增一个项目
+    :return:
+    """
+
+    if 'file' in request.files:
+        file = request.files['file']
+    else:
+        file = None
+    result = projectService.uploadFile(file)
+    return result
 
 @api.route('/deleteProject', methods=['GET'])
 def deleteProjectController():

@@ -46,10 +46,14 @@ class BaseConfig(object):
 
     # 上传文件
     # 配置文件保存的目录，本参数必须设置；
-    UPLOADED_PHOTO_DEST = path.join(path.dirname(path.abspath(__file__)), "aitms\static")
-    # 配置允许的扩展名，其他的都是不允许
-    UPLOADED_PHOTO_ALLOW = ['jpg', 'png']
+    # UPLOADED_PHOTO_DEST = path.join(path.dirname(path.abspath(__file__)), "aitms\static")
+    # # 配置允许的扩展名，其他的都是不允许
+    # UPLOADED_PHOTO_ALLOW = ['jpg', 'png']
 
+    # 配置文件保存的目录，本参数必须设置；
+    UPLOADED_FILES_DEST = "./static/"
+    # 配置允许的扩展名，其他的都是不允许
+    UPLOADED_FILES_ALLOW = ['zip', 'rar']
 
 class ProductConfig(BaseConfig):
     """

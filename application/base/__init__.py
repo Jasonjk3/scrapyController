@@ -47,10 +47,10 @@ login_manager.init_app(app)
 # CSRFProtect(app)
 
 # 初始化upload
-# from flask_uploads import configure_uploads,UploadSet
-# files = UploadSet('files')
+from flask_uploads import configure_uploads,UploadSet
+files = UploadSet(name='files')
 # photos = UploadSet(name='photos')
-# configure_uploads(app, [files, photos])
+configure_uploads(app, [files])
 
 # 配置定时器任务
 if app.config['CONFIG_SCHEDULER']:
