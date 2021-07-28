@@ -19,6 +19,8 @@ class Project(db.Model):
     project_id = db.Column(db.Integer, primary_key=True,autoincrement=True)  # 项目id
     scrapy_id = db.Column(db.Integer)
     scrapy_version  = db.Column(db.String(255))
+    scrapy_file_path = db.Column(db.String(255))
+    scrapy_file_name = db.Column(db.String(255))
     # node_id = db.Column(db.Integer)
     # spider_id = db.Column(db.String(255))
     # task_id = db.Column(db.String(255))

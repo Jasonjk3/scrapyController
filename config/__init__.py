@@ -1,4 +1,5 @@
 # 获取配置文件信息
+import os
 from os import path
 
 
@@ -51,7 +52,7 @@ class BaseConfig(object):
     # UPLOADED_PHOTO_ALLOW = ['jpg', 'png']
 
     # 配置文件保存的目录，本参数必须设置；
-    UPLOADED_FILES_DEST = "./static/"
+    UPLOADED_FILES_DEST = path.join(os.path.dirname(os.path.abspath(__file__)), "\static")
     # 配置允许的扩展名，其他的都是不允许
     UPLOADED_FILES_ALLOW = ['zip', 'rar']
 

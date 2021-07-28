@@ -51,19 +51,20 @@ def addProjectController():
         result = projectService.addProject(form)
         return result
 
-@api.route('/uploadFile', methods=['POST'])
-def uploadFileController():
+@api.route('/deployScrapy', methods=['POST'])
+def deployScrapyController():
     """
     新增一个项目
     :return:
     """
-
-    if 'file' in request.files:
-        file = request.files['file']
-    else:
-        file = None
-    result = projectService.uploadFile(file)
-    return result
+    form = ProjectForm()
+    if form.validate_for_api():
+        if 'file' in request.files:
+            file = request.files['file']
+        else:
+            file = None
+        result = projectService.deployScrapy(form,file)
+        return result
 
 @api.route('/deleteProject', methods=['GET'])
 def deleteProjectController():

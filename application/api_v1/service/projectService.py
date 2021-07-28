@@ -1,7 +1,10 @@
+import os
+
+from application.api_v1.libs.deploy import unzip
 from application.api_v1.model.project import Project
 from application.base import log, ajaxResponse
 from application.base.httpException import ServerError
-from application.base.upload import save_file
+from application.api_v1.libs.upload import save_file
 from application.base import mysql_db as db
 from datetime import datetime
 
@@ -71,10 +74,22 @@ def addProject(form):
         db.session.rollback()
         raise ServerError()
 
-def uploadFile(file):
+def deployScrapy(form,file):
     try:
-        path = save_file(file)
 
+        model = Project.query.filter_by(project_id=form.project_id.data).first()
+        if model is None:
+            return ajaxResponse.fail(message='project_id 不存在，请更换')
+
+        # flie 解压处理
+        path,file_url,basename = save_file(file)
+        basename = ''.join(basename.split('.')[:-1])
+        to_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"\static\scrapy\{basename}")
+        unzip(path,to_path)
+        os.remove(path) # 删除zip 文件
+
+        model.scrapy_file_path = to_path
+        model.scrapy_file_name = basename
         return ajaxResponse.success(message="成功")
     except Exception as e:
         log.error("错误 - {}".format(e))

@@ -35,9 +35,9 @@ def save_file(f):
         file_url = files.url(filename)
         basename = files.get_basename(filename) #文件名
         path = files.path(filename)
-        print('file_url =', file_url)  # http://127.0.0.1:8000/_uploads/photos/1525269617847e958494e4a.jpg
-        print('basename =', basename)  # 1525269617847e958494e4a.jpg
-        print('path =', path)  # uploads\1525269617847e958494e4a.jpg
-        return path
+        # print('file_url =', file_url)  # http://127.0.0.1:8000/_uploads/photos/1525269617847e958494e4a.jpg
+        # print('basename =', basename)  # 1525269617847e958494e4a.jpg
+        # print('path =', path)  # uploads\1525269617847e958494e4a.jpg
+        return path,file_url,basename
     except Exception as e :
         log.error('save_file - error - {}'.format(e))
