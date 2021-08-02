@@ -1,6 +1,6 @@
 import os
 
-from application.api_v1.libs.deploy import unzip
+from application.api_v1.libs.deploy import unzip, to_egg
 from application.api_v1.model.project import Project
 from application.base import log, ajaxResponse
 from application.base.httpException import ServerError
@@ -84,12 +84,13 @@ def deployScrapy(form,file):
         # flie 解压处理
         path,file_url,basename = save_file(file)
         basename = ''.join(basename.split('.')[:-1])
-        to_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"\static\scrapy\{basename}")
+        to_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"\static\scrapy")
         unzip(path,to_path)
         os.remove(path) # 删除zip 文件
 
-        model.scrapy_file_path = to_path
-        model.scrapy_file_name = basename
+        egg_file_path = to_egg(to_path,basename,'127.0.0.1','1.0')
+        # model.scrapy_file_path = to_path
+        # model.scrapy_file_name = basename
         return ajaxResponse.success(message="成功")
     except Exception as e:
         log.error("错误 - {}".format(e))

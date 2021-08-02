@@ -5,7 +5,8 @@ from wtforms.validators import DataRequired
 from application.base.baseForm import BaseForm as Form
 
 class ProjectForm(Form):
-    project_id = IntegerField(validators=[DataRequired()])
+    # project_id = IntegerField(validators=[DataRequired()])
+    pass
 
 
 class AddProjectForm(Form):

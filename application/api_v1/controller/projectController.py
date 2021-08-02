@@ -58,7 +58,7 @@ def deployScrapyController():
     :return:
     """
     form = ProjectForm()
-    if form.validate_for_api():
+    if form.validate_for_api(): # todo 空文件处理
         if 'file' in request.files:
             file = request.files['file']
         else:
